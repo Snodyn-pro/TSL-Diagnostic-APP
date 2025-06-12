@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Calendar, BookOpen, TrendingUp, AlertTriangle, CheckCircle } from "lucide-react";
+import { Calendar, BookOpen, TrendingUp, AlertTriangle, CheckCircle, ArrowLeft, Euro } from "lucide-react";
 import { analyzeFinancialData } from "@/utils/financialAnalysis";
 
 const Results = () => {
@@ -33,70 +33,84 @@ const Results = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-slate-800 mb-2">Resumo</h1>
-            <p className="text-slate-600">Seu diagnóstico financeiro personalizado</p>
+          {/* Header */}
+          <div className="flex items-center mb-8">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/quiz', { state: { userType } })}
+              className="mr-4 hover:bg-blue-100"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Voltar
+            </Button>
+            <div className="text-center flex-1">
+              <h1 className="text-3xl font-bold text-slate-800 mb-2">TSL Parceiros</h1>
+              <p className="text-slate-600">Seu diagnóstico financeiro personalizado</p>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Profile Summary */}
             <div className="lg:col-span-1">
-              <Card className="border-none shadow-lg mb-6">
+              <Card className="border-none shadow-xl mb-6 bg-white/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-slate-800">
                     <TrendingUp className="h-5 w-5" />
-                    Perfil Emocional
+                    Perfil Financeiro
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center">
                     <Badge 
                       variant="outline" 
-                      className={`text-lg px-4 py-2 ${
-                        analysis.profile === 'Equilibrado' ? 'border-green-500 text-green-700' :
-                        analysis.profile === 'Gastador por Impulso' ? 'border-red-500 text-red-700' :
-                        'border-yellow-500 text-yellow-700'
+                      className={`text-lg px-4 py-2 mb-4 ${
+                        analysis.profile === 'Equilibrado' ? 'border-green-500 text-green-700 bg-green-50' :
+                        analysis.profile === 'Gastador por Impulso' ? 'border-red-500 text-red-700 bg-red-50' :
+                        'border-yellow-500 text-yellow-700 bg-yellow-50'
                       }`}
                     >
                       {analysis.profile}
                     </Badge>
                     <div className="mt-4">
-                      <div className="text-3xl font-bold text-slate-800">{analysis.score}/100</div>
+                      <div className="text-4xl font-bold text-slate-800 mb-2">{analysis.score}/100</div>
                       <div className="text-sm text-slate-600">Pontuação Geral</div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-none shadow-lg">
+              <Card className="border-none shadow-xl bg-white/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Análise do Orçamento</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <Euro className="h-5 w-5" />
+                    Análise do Orçamento
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Gastos essenciais:</span>
-                      <span className="font-semibold">{analysis.budgetDistribution.essential}%</span>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                      <span className="text-slate-700 font-medium">Gastos essenciais:</span>
+                      <span className="font-bold text-blue-700">{analysis.budgetDistribution.essential}%</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Gastos não essenciais:</span>
-                      <span className="font-semibold">{analysis.budgetDistribution.nonEssential}%</span>
+                    <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                      <span className="text-slate-700 font-medium">Gastos não essenciais:</span>
+                      <span className="font-bold text-green-700">{analysis.budgetDistribution.nonEssential}%</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Poupança:</span>
-                      <span className="font-semibold">{analysis.budgetDistribution.savings}%</span>
+                    <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
+                      <span className="text-slate-700 font-medium">Poupança:</span>
+                      <span className="font-bold text-yellow-700">{analysis.budgetDistribution.savings}%</span>
                     </div>
                   </div>
                   <div className="mt-6">
                     <Button 
                       onClick={() => navigate('/schedule')}
-                      className="w-full bg-blue-600 hover:bg-blue-700"
+                      className="w-full bg-blue-600 hover:bg-blue-700 py-3 font-semibold"
                     >
                       <Calendar className="h-4 w-4 mr-2" />
-                      Agende uma sessão de consultoria
+                      Agendar Consultoria TSL
                     </Button>
                   </div>
                 </CardContent>
@@ -106,7 +120,7 @@ const Results = () => {
             {/* Charts and Analysis */}
             <div className="lg:col-span-2">
               <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <Card className="border-none shadow-lg">
+                <Card className="border-none shadow-xl bg-white/80 backdrop-blur-sm">
                   <CardHeader>
                     <CardTitle>Distribuição Orçamentária</CardTitle>
                   </CardHeader>
@@ -131,7 +145,7 @@ const Results = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-none shadow-lg">
+                <Card className="border-none shadow-xl bg-white/80 backdrop-blur-sm">
                   <CardHeader>
                     <CardTitle>Pontuação por Categoria</CardTitle>
                   </CardHeader>
@@ -150,21 +164,25 @@ const Results = () => {
               </div>
 
               {/* Recommendations */}
-              <Card className="border-none shadow-lg">
+              <Card className="border-none shadow-xl bg-white/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Recomendações Personalizadas</CardTitle>
+                  <CardTitle>Recomendações TSL Parceiros</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {analysis.recommendations.map((rec, index) => (
-                      <div key={index} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
+                      <div key={index} className={`flex items-start gap-3 p-4 rounded-lg border-l-4 ${
+                        rec.priority === 'high' ? 'bg-red-50 border-red-400' :
+                        rec.priority === 'medium' ? 'bg-yellow-50 border-yellow-400' :
+                        'bg-blue-50 border-blue-400'
+                      }`}>
                         {rec.priority === 'high' ? (
                           <AlertTriangle className="h-5 w-5 text-red-500 mt-0.5" />
                         ) : (
                           <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                         )}
                         <div>
-                          <h4 className="font-semibold text-slate-800">{rec.title}</h4>
+                          <h4 className="font-semibold text-slate-800 mb-1">{rec.title}</h4>
                           <p className="text-slate-600 text-sm">{rec.description}</p>
                         </div>
                       </div>
@@ -175,17 +193,17 @@ const Results = () => {
                     <Button 
                       onClick={() => navigate('/learning')}
                       variant="outline"
-                      className="flex-1"
+                      className="flex-1 hover:bg-blue-50"
                     >
                       <BookOpen className="h-4 w-4 mr-2" />
-                      Aprendizagem
+                      Material Educativo
                     </Button>
                     <Button 
                       onClick={() => navigate('/schedule')}
                       className="flex-1 bg-blue-600 hover:bg-blue-700"
                     >
                       <Calendar className="h-4 w-4 mr-2" />
-                      Agendar Consulta
+                      Agendar Consultoria
                     </Button>
                   </div>
                 </CardContent>

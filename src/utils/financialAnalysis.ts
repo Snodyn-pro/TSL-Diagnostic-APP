@@ -49,11 +49,11 @@ export const analyzeFinancialData = (answers: Record<string, string>, userType: 
   // Generate budget distribution
   const budgetDistribution = calculateBudgetDistribution(answers, userType);
   
-  // Generate recommendations
+  // Generate recommendations with Euro context
   if (answers.debts && answers.debts !== 'none') {
     recommendations.push({
       title: 'Priorize o pagamento de dívidas',
-      description: 'Foque em quitar as dívidas com maiores juros primeiro para reduzir os custos financeiros.',
+      description: 'Foque em quitar as dívidas com maiores juros primeiro para reduzir os custos financeiros em Euros.',
       priority: 'high'
     });
   }
@@ -61,7 +61,7 @@ export const analyzeFinancialData = (answers: Record<string, string>, userType: 
   if (answers.savings === 'none' || answers.savings === 'little') {
     recommendations.push({
       title: 'Crie uma reserva de emergência',
-      description: 'Comece poupando pelo menos 10% da sua renda mensal para formar uma reserva de emergência.',
+      description: 'Comece poupando pelo menos 10% da sua renda mensal em Euros para formar uma reserva de emergência.',
       priority: 'high'
     });
   }
@@ -77,14 +77,14 @@ export const analyzeFinancialData = (answers: Record<string, string>, userType: 
   if (userType === 'business' && answers.financial_control === 'poor') {
     recommendations.push({
       title: 'Melhore o controle financeiro',
-      description: 'Implemente um sistema de gestão financeira para melhor controle do fluxo de caixa.',
+      description: 'Implemente um sistema de gestão financeira para melhor controle do fluxo de caixa em Euros.',
       priority: 'high'
     });
   }
   
   recommendations.push({
     title: 'Educação financeira',
-    description: 'Continue aprendendo sobre finanças através de cursos, livros e materiais educativos.',
+    description: 'Continue aprendendo sobre finanças através de cursos, livros e materiais educativos da TSL Parceiros.',
     priority: 'low'
   });
   
