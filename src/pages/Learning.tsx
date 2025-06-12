@@ -1,18 +1,17 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Play, BookOpen, FileText, ExternalLink, Calculator, FileSpreadsheet, Smartphone, User, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Calculator, FileSpreadsheet, Smartphone } from "lucide-react";
 import ToolsModal from "@/components/tools/ToolsModal";
 import VideoPlayer from "@/components/learning/VideoPlayer";
 import ArticleModal from "@/components/learning/ArticleModal";
 import AuthModal from "@/components/auth/AuthModal";
+import LearningHeader from "@/components/learning/LearningHeader";
+import VideosSection from "@/components/learning/VideosSection";
+import ArticlesSection from "@/components/learning/ArticlesSection";
+import ToolsSidebar from "@/components/learning/ToolsSidebar";
 import { articlesContent } from "@/data/articlesContent";
 
 const Learning = () => {
-  const navigate = useNavigate();
   const [isToolsModalOpen, setIsToolsModalOpen] = useState(false);
   const [activeToolTab, setActiveToolTab] = useState("calculator");
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -126,192 +125,25 @@ const Learning = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
-              <Button 
-                variant="outline" 
-                onClick={() => navigate(-1)}
-                className="flex items-center gap-2"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Voltar
-              </Button>
-              <div>
-                <h1 className="text-3xl font-bold text-blue-900">Aprendizagem</h1>
-                <p className="text-slate-600">Materiais para melhorar sua educação financeira</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              {user ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-blue-900">Olá, {user.name}</span>
-                  <Button variant="outline" size="sm" onClick={handleLogout}>
-                    Sair
-                  </Button>
-                </div>
-              ) : (
-                <Button 
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
-                >
-                  <LogIn className="h-4 w-4" />
-                  Entrar
-                </Button>
-              )}
-              <a 
-                href="https://www.tslparceiros.pt" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline text-sm flex items-center gap-1"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Site Principal
-              </a>
-            </div>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-slate-100">
+      <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
+        <div className="max-w-7xl mx-auto">
+          <LearningHeader 
+            user={user}
+            onAuthClick={() => setIsAuthModalOpen(true)}
+            onLogout={handleLogout}
+          />
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Videos Section */}
-            <div className="lg:col-span-2">
-              <Card className="border-none shadow-lg mb-8 bg-white">
-                <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg">
-                  <CardTitle className="flex items-center gap-2">
-                    <Play className="h-5 w-5" />
-                    Vídeos Educativos
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {videos.map((video, index) => (
-                      <Card key={index} className="border border-blue-200 hover:shadow-md transition-shadow cursor-pointer hover:border-blue-400">
-                        <div className="relative">
-                          <img 
-                            src={video.thumbnail} 
-                            alt={video.title}
-                            className="w-full h-32 object-cover rounded-t-lg"
-                          />
-                          <div 
-                            className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-t-lg hover:bg-opacity-30 transition-all"
-                            onClick={() => openVideo(video)}
-                          >
-                            <Play className="h-8 w-8 text-white" />
-                          </div>
-                          <Badge className="absolute top-2 right-2 bg-blue-600">
-                            {video.duration}
-                          </Badge>
-                        </div>
-                        <CardContent className="p-4">
-                          <Badge variant="outline" className="mb-2 text-xs border-blue-200 text-blue-700">
-                            {video.level}
-                          </Badge>
-                          <h3 className="font-semibold text-blue-900 mb-2">{video.title}</h3>
-                          <p className="text-sm text-slate-600">{video.description}</p>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Articles Section */}
-              <Card className="border-none shadow-lg bg-white">
-                <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg">
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="h-5 w-5" />
-                    Artigos e Guias
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-6">
-                  <div className="space-y-4">
-                    {articles.map((article, index) => (
-                      <Card 
-                        key={index} 
-                        className="border border-blue-200 hover:shadow-md transition-shadow cursor-pointer hover:border-blue-400"
-                        onClick={() => openArticle(article)}
-                      >
-                        <CardContent className="p-4">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Badge variant="outline" className="text-xs border-blue-200 text-blue-700">
-                                  {article.category}
-                                </Badge>
-                                <span className="text-xs text-slate-500">{article.readTime}</span>
-                              </div>
-                              <h3 className="font-semibold text-blue-900 mb-2">{article.title}</h3>
-                              <p className="text-sm text-slate-600">{article.description}</p>
-                            </div>
-                            <ExternalLink className="h-4 w-4 text-blue-400 ml-4" />
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* Content Section */}
+            <div className="lg:col-span-2 space-y-6">
+              <VideosSection videos={videos} onVideoClick={openVideo} />
+              <ArticlesSection articles={articles} onArticleClick={openArticle} />
             </div>
 
             {/* Tools Sidebar */}
-            <div>
-              <Card className="border-none shadow-lg bg-white">
-                <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg">
-                  <CardTitle className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5" />
-                    Ferramentas Úteis
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-6">
-                  <div className="space-y-4">
-                    {tools.map((tool, index) => (
-                      <div 
-                        key={index} 
-                        className="p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer border border-blue-200"
-                        onClick={() => openTool(tool.tabKey)}
-                      >
-                        <div className="flex items-start gap-3">
-                          <tool.icon className="h-6 w-6 text-blue-600 mt-1" />
-                          <div className="flex-1">
-                            <h4 className="font-semibold text-blue-900 mb-1">{tool.name}</h4>
-                            <Badge variant="outline" className="text-xs mb-2 border-blue-200 text-blue-700">
-                              {tool.type}
-                            </Badge>
-                            <p className="text-sm text-slate-600">{tool.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-6">
-                    <Button 
-                      onClick={() => navigate('/schedule')}
-                      className="w-full bg-blue-600 hover:bg-blue-700"
-                    >
-                      Precisa de Ajuda Personalizada?
-                    </Button>
-                  </div>
-                  
-                  <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-2">TSL Parceiros</h4>
-                    <p className="text-sm text-slate-600 mb-3">
-                      Consultoria financeira especializada para pessoas e empresas
-                    </p>
-                    <a 
-                      href="https://www.tslparceiros.pt" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline text-sm flex items-center gap-1"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      Conheça nossos serviços
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="lg:col-span-1">
+              <ToolsSidebar tools={tools} onToolClick={openTool} />
             </div>
           </div>
         </div>

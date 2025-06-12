@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design system based on TSL Parceiros brand */
+/* Design system based on TSL Parceiros brand with green gladiantes colors */
 
 @layer base {
   :root {
@@ -16,42 +16,43 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* TSL Parceiros Blue Theme */
-    --primary: 217 91% 30%;
+    /* TSL Parceiros Green Gladiantes Theme */
+    --primary: 145 85% 25%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 145 20% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 40% 96.1%;
+    --muted: 145 20% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 217 91% 95%;
-    --accent-foreground: 217 91% 30%;
+    --accent: 145 85% 95%;
+    --accent-foreground: 145 85% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 217 91% 30%;
+    --border: 145 31.8% 91.4%;
+    --input: 145 31.8% 91.4%;
+    --ring: 145 85% 25%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 217 91% 30%;
+    --sidebar-primary: 145 85% 25%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent: 145 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-border: 145 13% 91%;
+    --sidebar-ring: 145 85% 59.8%;
 
-    /* TSL Brand Colors */
-    --tsl-blue: 217 91% 30%;
-    --tsl-blue-light: 217 91% 85%;
-    --tsl-blue-dark: 217 91% 20%;
-    --tsl-accent: 45 100% 50%;
+    /* TSL Brand Colors - Green Gladiantes */
+    --tsl-green: 145 85% 25%;
+    --tsl-green-light: 145 85% 85%;
+    --tsl-green-dark: 145 85% 15%;
+    --tsl-blue: 195 100% 35%;
+    --tsl-dark: 220 15% 25%;
     --tsl-neutral: 210 11% 71%;
   }
 
@@ -65,33 +66,33 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217 91% 50%;
+    --primary: 145 85% 40%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 145 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 145 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 145 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 217 91% 50%;
+    --border: 145 32.6% 17.5%;
+    --input: 145 32.6% 17.5%;
+    --ring: 145 85% 40%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 217 91% 50%;
+    --sidebar-primary: 145 85% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 145 85% 59.8%;
   }
 }
 
@@ -107,58 +108,128 @@
 
   /* TSL Brand Typography */
   h1, h2, h3, h4, h5, h6 {
-    @apply text-blue-900;
+    @apply text-slate-800;
     font-weight: 600;
   }
 
   /* TSL Brand Utilities */
   .tsl-gradient {
-    background: linear-gradient(135deg, hsl(var(--tsl-blue)) 0%, hsl(var(--tsl-blue-dark)) 100%);
+    background: linear-gradient(135deg, hsl(var(--tsl-green)) 0%, hsl(var(--tsl-green-dark)) 100%);
   }
 
   .tsl-card {
-    @apply bg-white border border-blue-200 shadow-lg hover:shadow-xl transition-shadow;
+    @apply bg-white border border-green-200 shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .tsl-button {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium;
+    @apply bg-green-600 hover:bg-green-700 text-white font-medium transition-all duration-200;
   }
 
   .tsl-text {
-    @apply text-blue-900;
+    @apply text-slate-800;
   }
 
   .tsl-muted {
     @apply text-slate-600;
   }
+
+  .tsl-logo {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
 }
 
-/* Animations for smooth transitions */
+/* Enhanced Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideIn {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
 }
 
 .animate-slide-in {
-  animation: slideIn 0.3s ease-out;
+  animation: slideIn 0.4s ease-out;
 }
 
-/* Responsive improvements */
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Mobile optimizations */
 @media (max-width: 768px) {
   .container {
-    @apply px-2;
+    @apply px-3;
   }
   
   .card {
     @apply mx-2;
   }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  .mobile-grid {
+    @apply grid-cols-1 gap-4;
+  }
+
+  .mobile-padding {
+    @apply p-4;
+  }
+
+  .mobile-text {
+    @apply text-sm;
+  }
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.hover-green {
+  transition: all 0.2s ease;
+}
+
+.hover-green:hover {
+  background-color: hsl(var(--tsl-green));
+  color: white;
 }
