@@ -3,10 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Play, BookOpen, FileText, ExternalLink } from "lucide-react";
+import { ArrowLeft, Play, BookOpen, FileText, ExternalLink, Calculator, FileSpreadsheet, Smartphone } from "lucide-react";
+import { useState } from "react";
+import ToolsModal from "@/components/tools/ToolsModal";
 
 const Learning = () => {
   const navigate = useNavigate();
+  const [isToolsModalOpen, setIsToolsModalOpen] = useState(false);
+  const [activeToolTab, setActiveToolTab] = useState("calculator");
 
   const videos = [
     {
@@ -55,21 +59,32 @@ const Learning = () => {
 
   const tools = [
     {
-      name: "Planilha de Orçamento Pessoal",
-      type: "Excel/Google Sheets",
-      description: "Planilha completa para controle financeiro pessoal"
-    },
-    {
       name: "Calculadora de Juros Compostos",
       type: "Ferramenta Online",
-      description: "Calcule o poder dos juros compostos nos seus investimentos"
+      description: "Calcule o poder dos juros compostos nos seus investimentos",
+      icon: Calculator,
+      tabKey: "calculator"
+    },
+    {
+      name: "Planilha de Orçamento Pessoal",
+      type: "Excel/Google Sheets",
+      description: "Planilha completa para controle financeiro pessoal",
+      icon: FileSpreadsheet,
+      tabKey: "budget"
     },
     {
       name: "App de Controle de Gastos",
       type: "Aplicativo Mobile",
-      description: "Monitore seus gastos em tempo real"
+      description: "Monitore seus gastos em tempo real",
+      icon: Smartphone,
+      tabKey: "tracker"
     }
   ];
+
+  const openTool = (tabKey: string) => {
+    setActiveToolTab(tabKey);
+    setIsToolsModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
@@ -176,12 +191,21 @@ const Learning = () => {
                 <CardContent>
                   <div className="space-y-4">
                     {tools.map((tool, index) => (
-                      <div key={index} className="p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-                        <h4 className="font-semibold text-slate-800 mb-1">{tool.name}</h4>
-                        <Badge variant="outline" className="text-xs mb-2">
-                          {tool.type}
-                        </Badge>
-                        <p className="text-sm text-slate-600">{tool.description}</p>
+                      <div 
+                        key={index} 
+                        className="p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                        onClick={() => openTool(tool.tabKey)}
+                      >
+                        <div className="flex items-start gap-3">
+                          <tool.icon className="h-6 w-6 text-blue-600 mt-1" />
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-slate-800 mb-1">{tool.name}</h4>
+                            <Badge variant="outline" className="text-xs mb-2">
+                              {tool.type}
+                            </Badge>
+                            <p className="text-sm text-slate-600">{tool.description}</p>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -200,6 +224,12 @@ const Learning = () => {
           </div>
         </div>
       </div>
+
+      <ToolsModal 
+        isOpen={isToolsModalOpen}
+        onClose={() => setIsToolsModalOpen(false)}
+        activeTab={activeToolTab}
+      />
     </div>
   );
 };
