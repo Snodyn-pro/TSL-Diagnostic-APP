@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -59,7 +60,7 @@
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 217.2 32.6% 17.5%;
     --card-foreground: 210 40% 98%;
 
     --popover: 222.2 84% 4.9%;
@@ -68,29 +69,29 @@
     --primary: 145 85% 40%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 145 32.6% 17.5%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 145 32.6% 17.5%;
+    --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 145 32.6% 17.5%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 145 32.6% 17.5%;
-    --input: 145 32.6% 17.5%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
     --ring: 145 85% 40%;
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 145 85% 40%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-primary-foreground: 222.2 84% 4.9%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
     --sidebar-ring: 145 85% 59.8%;
   }
 }
@@ -112,7 +113,25 @@
     line-height: 1.2;
   }
 
-  /* Scrollbar Styling */
+  /* Consistent dark mode for all elements */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    @apply border-border bg-card text-card-foreground;
+  }
+
+  .dark button[data-state="open"],
+  .dark [role="menuitem"]:hover,
+  .dark [data-radix-collection-item]:hover {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  /* Dropdown consistency */
+  [data-radix-popper-content-wrapper] {
+    @apply z-50;
+  }
+
+  /* Scrollbar Styling - Dark mode compatible */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -134,9 +153,21 @@
     color-scheme: dark;
   }
 
+  .dark *::-webkit-scrollbar-track {
+    @apply bg-card;
+  }
+
+  .dark *::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/40;
+  }
+
   /* Selection styling */
   ::selection {
     @apply bg-primary/20 text-primary-foreground;
+  }
+
+  .dark ::selection {
+    @apply bg-primary/30 text-primary-foreground;
   }
 }
 
@@ -194,6 +225,16 @@
   }
 }
 
+@keyframes slideLeft {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out;
 }
@@ -214,6 +255,14 @@
   animation: pulseGlow 2s infinite;
 }
 
+.animate-slide-left {
+  animation: slideLeft 0.5s ease-out;
+}
+
+.animate-slide-right {
+  animation: slideRight 0.5s ease-out;
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .container {
@@ -221,11 +270,11 @@
   }
   
   h1 {
-    @apply text-3xl;
+    @apply text-2xl md:text-3xl;
   }
 
   h2 {
-    @apply text-2xl;
+    @apply text-xl md:text-2xl;
   }
 
   .mobile-padding {
@@ -233,14 +282,34 @@
   }
 
   /* Touch targets */
-  button, [role="button"] {
+  button, [role="button"], input, textarea, select {
     min-height: 44px;
-    min-width: 44px;
   }
 
   /* Better spacing on mobile */
   .mobile-stack > * + * {
     margin-top: 1rem;
+  }
+
+  /* Improved mobile form styling */
+  .mobile-form {
+    @apply space-y-4;
+  }
+
+  .mobile-form input,
+  .mobile-form textarea,
+  .mobile-form select {
+    @apply text-base; /* Prevents zoom on iOS */
+  }
+
+  /* Card improvements for mobile */
+  .mobile-card {
+    @apply mx-2 rounded-lg shadow-sm;
+  }
+
+  /* Better mobile navigation */
+  .mobile-nav {
+    @apply fixed bottom-0 left-0 right-0 z-50 bg-card border-t;
   }
 }
 
@@ -256,21 +325,17 @@
 
 /* Button enhancements */
 .btn-primary {
-  @apply bg-gradient-to-r from-primary to-green-600 hover:from-primary/90 hover:to-green-700 text-primary-foreground font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105;
+  @apply bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-primary-foreground font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105;
 }
 
-/* Glass morphism effect */
+/* Glass morphism effect - Dark mode compatible */
 .glass {
-  @apply bg-white/80 backdrop-blur-md border border-white/20;
-}
-
-.dark .glass {
-  @apply bg-gray-900/80 border-gray-700/20;
+  @apply bg-background/80 backdrop-blur-md border border-border/20;
 }
 
 /* Gradient text */
 .gradient-text {
-  @apply bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent;
 }
 
 /* Card hover effects */
@@ -279,8 +344,12 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px hsl(var(--primary) / 0.1);
+}
+
+.dark .hover-lift:hover {
+  box-shadow: 0 10px 40px hsl(var(--primary) / 0.2);
 }
 
 /* Loading animations */
@@ -292,6 +361,11 @@
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+/* Progress bar styling */
+.progress-bar {
+  @apply bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-500;
 }
 
 /* Accessibility improvements */
@@ -324,5 +398,29 @@
   
   .no-print {
     display: none !important;
+  }
+}
+
+/* Custom mobile-first responsive utilities */
+@media (min-width: 640px) {
+  .sm\:grid-cols-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Enhanced mobile touch interactions */
+@media (hover: none) and (pointer: coarse) {
+  .hover-lift:active {
+    transform: translateY(-2px);
+  }
+  
+  button:active {
+    transform: scale(0.98);
   }
 }

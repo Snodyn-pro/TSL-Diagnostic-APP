@@ -7,11 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { ArrowLeft, Calendar, Clock, User, Phone, Mail } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, Phone, Mail, Euro } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/hooks/use-language";
 
 const Schedule = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,36 +25,39 @@ const Schedule = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
     console.log('Scheduling consultation:', formData);
-    toast.success('Consulta agendada com sucesso! Entraremos em contato em breve.');
+    toast.success('Consulta agendada com sucesso! Entraremos em contacto em breve.');
     navigate('/');
   };
 
   const consultationTypes = [
     {
       value: 'financial_planning',
-      label: 'Planejamento Financeiro Pessoal',
+      label: t('schedule.consultation.planning'),
       description: 'Organização de finanças pessoais e familiares',
-      duration: '60 min'
+      duration: '60 min',
+      price: '€150'
     },
     {
       value: 'debt_management',
-      label: 'Gestão de Dívidas',
+      label: t('schedule.consultation.debt'),
       description: 'Estratégias para quitar dívidas e reorganizar finanças',
-      duration: '45 min'
+      duration: '45 min',
+      price: '€120'
     },
     {
       value: 'investment_guidance',
-      label: 'Orientação para Investimentos',
+      label: t('schedule.consultation.investment'),
       description: 'Primeiros passos e estratégias de investimento',
-      duration: '60 min'
+      duration: '60 min',
+      price: '€180'
     },
     {
       value: 'business_finance',
-      label: 'Consultoria Empresarial',
+      label: t('schedule.consultation.business'),
       description: 'Gestão financeira empresarial e fluxo de caixa',
-      duration: '90 min'
+      duration: '90 min',
+      price: '€250'
     }
   ];
 
@@ -63,7 +68,7 @@ const Schedule = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
@@ -73,28 +78,28 @@ const Schedule = () => {
               className="flex items-center gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
-              Voltar
+              {t('learning.back')}
             </Button>
             <div>
-              <h1 className="text-3xl font-bold text-slate-800">Agendar Consulta</h1>
-              <p className="text-slate-600">Fale com um especialista em finanças</p>
+              <h1 className="text-3xl font-bold text-foreground">{t('schedule.title')}</h1>
+              <p className="text-muted-foreground">{t('schedule.subtitle')}</p>
             </div>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <Card className="border-none shadow-lg">
+              <Card className="border shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Calendar className="h-5 w-5" />
-                    Dados para Agendamento
+                    {t('schedule.form.title')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="name">Nome Completo</Label>
+                        <Label htmlFor="name">{t('schedule.form.name')}</Label>
                         <Input
                           id="name"
                           value={formData.name}
@@ -104,7 +109,7 @@ const Schedule = () => {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="email">E-mail</Label>
+                        <Label htmlFor="email">{t('schedule.form.email')}</Label>
                         <Input
                           id="email"
                           type="email"
@@ -117,34 +122,40 @@ const Schedule = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="phone">Telefone/WhatsApp</Label>
+                      <Label htmlFor="phone">{t('schedule.form.phone')}</Label>
                       <Input
                         id="phone"
                         value={formData.phone}
                         onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                        placeholder="(11) 99999-9999"
+                        placeholder="+351 912 345 678"
                         required
                         className="mt-1"
                       />
                     </div>
 
                     <div>
-                      <Label>Tipo de Consulta</Label>
+                      <Label>{t('schedule.form.type')}</Label>
                       <RadioGroup 
                         value={formData.consultationType}
                         onValueChange={(value) => setFormData(prev => ({ ...prev, consultationType: value }))}
                         className="mt-2"
                       >
                         {consultationTypes.map((type) => (
-                          <div key={type.value} className="flex items-start space-x-2 p-3 border rounded-lg hover:bg-slate-50">
+                          <div key={type.value} className="flex items-start space-x-2 p-3 border rounded-lg hover:bg-accent">
                             <RadioGroupItem value={type.value} id={type.value} className="mt-1" />
                             <div className="flex-1">
                               <Label htmlFor={type.value} className="cursor-pointer">
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between mb-1">
                                   <span className="font-semibold">{type.label}</span>
-                                  <span className="text-sm text-slate-500">{type.duration}</span>
+                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <span>{type.duration}</span>
+                                    <span className="font-semibold text-primary flex items-center gap-1">
+                                      <Euro className="h-3 w-3" />
+                                      {type.price}
+                                    </span>
+                                  </div>
                                 </div>
-                                <p className="text-sm text-slate-600">{type.description}</p>
+                                <p className="text-sm text-muted-foreground">{type.description}</p>
                               </Label>
                             </div>
                           </div>
@@ -153,7 +164,7 @@ const Schedule = () => {
                     </div>
 
                     <div>
-                      <Label>Horário Preferido</Label>
+                      <Label>{t('schedule.form.time')}</Label>
                       <RadioGroup 
                         value={formData.preferredTime}
                         onValueChange={(value) => setFormData(prev => ({ ...prev, preferredTime: value }))}
@@ -169,12 +180,12 @@ const Schedule = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="message">Mensagem (Opcional)</Label>
+                      <Label htmlFor="message">{t('schedule.form.message')}</Label>
                       <Textarea
                         id="message"
                         value={formData.message}
                         onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                        placeholder="Conte-nos um pouco sobre sua situação ou dúvidas específicas..."
+                        placeholder="Conte-nos um pouco sobre a sua situação ou dúvidas específicas..."
                         className="mt-1"
                         rows={4}
                       />
@@ -182,9 +193,9 @@ const Schedule = () => {
 
                     <Button 
                       type="submit" 
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3"
+                      className="w-full bg-primary hover:bg-primary/90 text-lg py-3"
                     >
-                      Agendar Consulta
+                      {t('schedule.form.submit')}
                     </Button>
                   </form>
                 </CardContent>
@@ -192,7 +203,7 @@ const Schedule = () => {
             </div>
 
             <div>
-              <Card className="border-none shadow-lg mb-6">
+              <Card className="border shadow-lg mb-6">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <User className="h-5 w-5" />
@@ -201,24 +212,28 @@ const Schedule = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-center mb-4">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <User className="h-8 w-8 text-blue-600" />
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <User className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="font-semibold text-slate-800">Consultores Certificados</h3>
-                    <p className="text-sm text-slate-600">CFP®, CGA e especialistas em finanças</p>
+                    <h3 className="font-semibold text-foreground">Consultores Certificados</h3>
+                    <p className="text-sm text-muted-foreground">CFP®, CGA e especialistas em finanças</p>
                   </div>
                   <div className="space-y-3 text-sm">
                     <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-slate-400" />
+                      <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>Atendimento em até 24h</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-slate-400" />
+                      <Phone className="h-4 w-4 text-muted-foreground" />
                       <span>Consulta online ou presencial</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-slate-400" />
+                      <Mail className="h-4 w-4 text-muted-foreground" />
                       <span>Relatório personalizado incluído</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Euro className="h-4 w-4 text-muted-foreground" />
+                      <span className="font-semibold text-primary">{t('schedule.pricing.from')}</span>
                     </div>
                   </div>
                 </CardContent>
