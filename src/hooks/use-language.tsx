@@ -33,7 +33,7 @@ const translations = {
     
     // Welcome Page
     'welcome.title': 'Diagnóstico Financeiro',
-    'welcome.subtitle': 'Descubra a sua saúde financeira actual e receba um plano personalizado para alcançar os seus objectivos financeiros',
+    'welcome.subtitle': 'Descubra a sua saúde financeira atual e receba um plano personalizado para alcançar os seus objetivos financeiros',
     'welcome.feature1.title': 'Análise Profunda',
     'welcome.feature1.desc': 'Diagnóstico completo da sua situação financeira',
     'welcome.feature2.title': '100% Seguro',

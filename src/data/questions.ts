@@ -18,34 +18,34 @@ export const questionsData: Record<string, Question[]> = {
   individual: [
     {
       id: 'income',
-      question: 'Qual é a sua renda mensal líquida?',
+      question: 'Qual é o seu rendimento mensal líquido?',
       subtitle: 'Considere todos os rendimentos após impostos',
-      type: 'number',
-      placeholder: 'Ex: 5000'
-    },
-    {
-      id: 'fixed_expenses',
-      question: 'Qual o valor das suas despesas fixas mensais?',
-      subtitle: 'Aluguel, financiamentos, planos, etc.',
       type: 'number',
       placeholder: 'Ex: 2500'
     },
     {
+      id: 'fixed_expenses',
+      question: 'Qual o valor das suas despesas fixas mensais?',
+      subtitle: 'Renda, financiamentos, seguros, etc.',
+      type: 'number',
+      placeholder: 'Ex: 1200'
+    },
+    {
       id: 'variable_expenses',
-      question: 'Quanto você gasta em média com despesas variáveis?',
+      question: 'Quanto gasta em média com despesas variáveis?',
       subtitle: 'Alimentação, transporte, lazer, etc.',
       type: 'number',
-      placeholder: 'Ex: 1500'
+      placeholder: 'Ex: 800'
     },
     {
       id: 'debts',
-      question: 'Você possui dívidas atualmente?',
+      question: 'Possui dívidas atualmente?',
       type: 'radio',
       options: [
         { value: 'none', label: 'Não tenho dívidas' },
-        { value: 'low', label: 'Poucas dívidas (até 30% da renda)' },
-        { value: 'medium', label: 'Dívidas moderadas (30-50% da renda)' },
-        { value: 'high', label: 'Muitas dívidas (mais de 50% da renda)' }
+        { value: 'low', label: 'Poucas dívidas (até 30% do rendimento)' },
+        { value: 'medium', label: 'Dívidas moderadas (30-50% do rendimento)' },
+        { value: 'high', label: 'Muitas dívidas (mais de 50% do rendimento)' }
       ]
     },
     {
@@ -56,14 +56,14 @@ export const questionsData: Record<string, Question[]> = {
         { value: 'credit_card', label: 'Cartão de crédito' },
         { value: 'personal_loan', label: 'Empréstimo pessoal' },
         { value: 'financing', label: 'Financiamento (casa/carro)' },
-        { value: 'overdraft', label: 'Cheque especial' },
+        { value: 'overdraft', label: 'Descoberto bancário' },
         { value: 'other', label: 'Outros' }
       ],
       condition: (answers) => answers.debts !== 'none'
     },
     {
       id: 'impulse_buying',
-      question: 'Com que frequência você faz compras por impulso?',
+      question: 'Com que frequência faz compras por impulso?',
       type: 'radio',
       options: [
         { value: 'never', label: 'Nunca ou quase nunca' },
@@ -75,36 +75,36 @@ export const questionsData: Record<string, Question[]> = {
     },
     {
       id: 'savings',
-      question: 'Você consegue poupar dinheiro mensalmente?',
+      question: 'Consegue poupar dinheiro mensalmente?',
       type: 'radio',
       options: [
         { value: 'none', label: 'Não consigo poupar nada' },
-        { value: 'little', label: 'Pouco (até 5% da renda)' },
-        { value: 'moderate', label: 'Moderado (5-15% da renda)' },
-        { value: 'good', label: 'Bom (15-30% da renda)' },
+        { value: 'little', label: 'Pouco (até 5% do rendimento)' },
+        { value: 'moderate', label: 'Moderado (5-15% do rendimento)' },
+        { value: 'good', label: 'Bom (15-30% do rendimento)' },
         { value: 'excellent', label: 'Excelente (mais de 30%)' }
       ]
     },
     {
       id: 'financial_goals',
-      question: 'Qual é seu principal objetivo financeiro?',
+      question: 'Qual é o seu principal objetivo financeiro?',
       type: 'radio',
       options: [
         { value: 'emergency', label: 'Criar reserva de emergência' },
         { value: 'pay_debts', label: 'Quitar dívidas' },
         { value: 'house', label: 'Comprar casa própria' },
-        { value: 'retirement', label: 'Aposentadoria' },
+        { value: 'retirement', label: 'Reforma' },
         { value: 'investment', label: 'Investir e multiplicar dinheiro' }
       ]
     },
     {
       id: 'main_difficulty',
-      question: 'Qual é sua maior dificuldade financeira hoje?',
+      question: 'Qual é a sua maior dificuldade financeira hoje?',
       type: 'radio',
       options: [
-        { value: 'low_income', label: 'Renda insuficiente' },
+        { value: 'low_income', label: 'Rendimento insuficiente' },
         { value: 'high_expenses', label: 'Gastos muito altos' },
-        { value: 'no_control', label: 'Falta de controle financeiro' },
+        { value: 'no_control', label: 'Falta de controlo financeiro' },
         { value: 'debts', label: 'Muitas dívidas' },
         { value: 'no_knowledge', label: 'Falta de conhecimento sobre investimentos' }
       ]
@@ -116,36 +116,36 @@ export const questionsData: Record<string, Question[]> = {
       question: 'Qual o porte da sua empresa?',
       type: 'radio',
       options: [
-        { value: 'mei', label: 'MEI (Microempreendedor Individual)' },
-        { value: 'micro', label: 'Microempresa (até R$ 360k/ano)' },
-        { value: 'small', label: 'Pequena empresa (até R$ 4,8M/ano)' },
-        { value: 'medium', label: 'Média empresa (até R$ 300M/ano)' },
-        { value: 'large', label: 'Grande empresa (acima de R$ 300M/ano)' }
+        { value: 'mei', label: 'Empresário Individual' },
+        { value: 'micro', label: 'Microempresa (até €360k/ano)' },
+        { value: 'small', label: 'Pequena empresa (até €2M/ano)' },
+        { value: 'medium', label: 'Média empresa (até €50M/ano)' },
+        { value: 'large', label: 'Grande empresa (acima de €50M/ano)' }
       ]
     },
     {
       id: 'monthly_revenue',
       question: 'Qual é o faturamento mensal médio?',
       type: 'number',
-      placeholder: 'Ex: 50000'
+      placeholder: 'Ex: 25000'
     },
     {
       id: 'fixed_costs',
       question: 'Quais são os custos fixos mensais?',
-      subtitle: 'Aluguel, salários, impostos fixos, etc.',
+      subtitle: 'Renda, salários, impostos fixos, etc.',
       type: 'number',
-      placeholder: 'Ex: 30000'
+      placeholder: 'Ex: 15000'
     },
     {
       id: 'variable_costs',
       question: 'Quais são os custos variáveis mensais?',
       subtitle: 'Matéria-prima, comissões, etc.',
       type: 'number',
-      placeholder: 'Ex: 15000'
+      placeholder: 'Ex: 8000'
     },
     {
       id: 'cash_flow',
-      question: 'Sua empresa tem fluxo de caixa positivo?',
+      question: 'A sua empresa tem fluxo de caixa positivo?',
       type: 'radio',
       options: [
         { value: 'positive', label: 'Sim, sempre positivo' },
@@ -167,14 +167,14 @@ export const questionsData: Record<string, Question[]> = {
     },
     {
       id: 'financial_control',
-      question: 'Como é o controle financeiro da empresa?',
+      question: 'Como é o controlo financeiro da empresa?',
       type: 'radio',
       options: [
         { value: 'excellent', label: 'Excelente - uso sistema completo' },
-        { value: 'good', label: 'Bom - planilhas organizadas' },
-        { value: 'basic', label: 'Básico - controle simples' },
-        { value: 'poor', label: 'Precário - pouco controle' },
-        { value: 'none', label: 'Não faço controle' }
+        { value: 'good', label: 'Bom - folhas de cálculo organizadas' },
+        { value: 'basic', label: 'Básico - controlo simples' },
+        { value: 'poor', label: 'Precário - pouco controlo' },
+        { value: 'none', label: 'Não faço controlo' }
       ]
     },
     {
@@ -196,7 +196,7 @@ export const questionsData: Record<string, Question[]> = {
       options: [
         { value: 'cash_flow', label: 'Gestão do fluxo de caixa' },
         { value: 'growth_capital', label: 'Capital para crescimento' },
-        { value: 'cost_control', label: 'Controle de custos' },
+        { value: 'cost_control', label: 'Controlo de custos' },
         { value: 'debt_management', label: 'Gestão de dívidas' },
         { value: 'profitability', label: 'Aumentar lucratividade' }
       ]

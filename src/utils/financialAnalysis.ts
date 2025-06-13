@@ -1,4 +1,3 @@
-
 interface Recommendation {
   title: string;
   description: string;
@@ -53,7 +52,7 @@ export const analyzeFinancialData = (answers: Record<string, string>, userType: 
   if (answers.debts && answers.debts !== 'none') {
     recommendations.push({
       title: 'Priorize o pagamento de dívidas',
-      description: 'Foque em quitar as dívidas com maiores juros primeiro para reduzir os custos financeiros em Euros.',
+      description: 'Foque em quitar as dívidas com maiores juros primeiro para reduzir os custos financeiros em euros.',
       priority: 'high'
     });
   }
@@ -61,7 +60,7 @@ export const analyzeFinancialData = (answers: Record<string, string>, userType: 
   if (answers.savings === 'none' || answers.savings === 'little') {
     recommendations.push({
       title: 'Crie uma reserva de emergência',
-      description: 'Comece poupando pelo menos 10% da sua renda mensal em Euros para formar uma reserva de emergência.',
+      description: 'Comece poupando pelo menos 10% do seu rendimento mensal em euros para formar uma reserva de emergência.',
       priority: 'high'
     });
   }
@@ -69,22 +68,22 @@ export const analyzeFinancialData = (answers: Record<string, string>, userType: 
   if (answers.impulse_buying === 'often' || answers.impulse_buying === 'always') {
     recommendations.push({
       title: 'Controle compras por impulso',
-      description: 'Implemente a regra dos 24h: espere um dia antes de fazer compras não essenciais.',
+      description: 'Implemente a regra das 24h: espere um dia antes de fazer compras não essenciais.',
       priority: 'medium'
     });
   }
   
   if (userType === 'business' && answers.financial_control === 'poor') {
     recommendations.push({
-      title: 'Melhore o controle financeiro',
-      description: 'Implemente um sistema de gestão financeira para melhor controle do fluxo de caixa em Euros.',
+      title: 'Melhore o controlo financeiro',
+      description: 'Implemente um sistema de gestão financeira para melhor controlo do fluxo de caixa em euros.',
       priority: 'high'
     });
   }
   
   recommendations.push({
     title: 'Educação financeira',
-    description: 'Continue aprendendo sobre finanças através de cursos, livros e materiais educativos da TSL Parceiros.',
+    description: 'Continue a aprender sobre finanças através de cursos, livros e materiais educativos da TSL Parceiros.',
     priority: 'low'
   });
   
